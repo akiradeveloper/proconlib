@@ -1,0 +1,14 @@
+[project]
+name = "procon"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">= 3.10"
+license = { text = "MIT" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = ["pytest~=7.3.1"]
