@@ -1,5 +1,3 @@
 # procon
 
-Describe your project here.
-
-* License: MIT
+`rye sync` then `rye run pytest`
