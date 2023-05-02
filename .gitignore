@@ -1,3 +1,5 @@
+.vscode
+contests
 *.lock
 
 # Byte-compiled / optimized / DLL files
