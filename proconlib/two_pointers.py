@@ -23,3 +23,5 @@ def two_pointers(start: int, end: int, f, g):
             if cur:
                 g(l, r)
             l += 1
+    if f(l,r):
+        g(l,r)
