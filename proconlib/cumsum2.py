@@ -15,14 +15,13 @@ class Cumsum2:
         sum3 = self.dp[q[0]][p[1]]
         return sum4 + sum1 - sum2 - sum3
 
+
 def double_sweep(m):
-    print(m)
     h = len(m)
     w = len(m[0])
     for i in range(h):
         for j in range(w-1):
             m[i][j+1] += m[i][j]
-    print(m)
     for j in range(w):
         for i in range(h-1):
             m[i+1][j] += m[i][j]
