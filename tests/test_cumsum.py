@@ -1,4 +1,4 @@
-from proconlib.cumsum2 import *
+from proconlib.cumsum import *
 
 
 def test_cumsum2():
