@@ -1,7 +1,7 @@
 from typing import *
 
 
-def two_pointers(start: int, end: int, f, g):
+def two_pointers(start: int, end: int, f: Callable[[int,int],bool], g: Callable[[int,int], NoReturn]):
     l = start
     r = start
     while not (l == end and r == end):
