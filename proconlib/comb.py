@@ -15,10 +15,6 @@ class ModComb:
             inv[i] = M - inv[M % i] * (M//i) % M
             finv[i] = finv[i-1] * inv[i] % M
 
-        print(len(fac))
-        print(len(inv))
-        print(len(finv))
-
         self.fac = fac
         self.finv = finv
         self.inv = inv
