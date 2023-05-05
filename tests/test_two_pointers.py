@@ -7,12 +7,8 @@ def test_two_pointers():
     K = 10
 
     def f(x, y):
-        if x == y:
-            return True
-        if A[y] - A[x] <= K:
-            return True
-        else:
-            return False
+        return A[y] - A[x] <= K
+
     tot = 0
 
     def g(x, y):
@@ -27,12 +23,8 @@ def test_two_pointers_2():
     K = 10
 
     def f(x, y):
-        if x == y:
-            return True
-        if A[y] - A[x] <= K:
-            return True
-        else:
-            return False
+        return A[y] - A[x] <= K
+
     tot = 0
     def g(x, y):
         nonlocal tot
