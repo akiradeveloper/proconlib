@@ -3,17 +3,14 @@ from proconlib.comb import ModComb
 import pytest
 
 
-@pytest.mark.parametrize("n,k,ans", [
-    (10, 2, 55),
-    (10, 3, 220),
-    (10, 4, 715),
-    (400, 296, 546898535),
-    (100000, 100000, 939733670)
-])
-def test_mod_comb_nHk(n, k, ans):
+@pytest.mark.randomize(n=int, k=int, min_num=1, max_num=100000)
+def test_mod_comb_nCk(n, k):
     M = 1_000_000_007
-    m = ModComb(2*100000, M)
-    a = k+n-1
-    b = k
-    nHk = m.fac[a] * m.finv[b] * m.finv[a-k]
-    assert nHk % M == ans
+    n, k = max(n, k), min(n, k)
+    assert n >= k
+
+    m = ModComb(n, M)
+    nCk = m.fac[n] * m.finv[k] * m.finv[n-k]
+
+    import math
+    assert nCk % M == math.comb(n, k) % M
