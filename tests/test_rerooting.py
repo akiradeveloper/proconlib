@@ -12,18 +12,19 @@ def test_rerooting():
     for (u,v) in E:
         t.add_edge(u,v,1)
         t.add_edge(v,u,1)
+    t.dfs_once(None, 0)
+    t.dfs_reroot(None, 0)
+    print(t.dp)
+
     A = [
-        (0,1,1),
-        (0,2,1),
-        (0,3,1),
-        (0,4,2),
-        (1,2,2),
-        (1,3,2),
-        (1,4,3),
-        (2,3,2),
-        (2,4,1),
-        (3,4,3),
+        (0,1,4),
+        (1,0,1),
+        (0,2,3),
+        (2,0,2),
+        (0,3,4),
+        (3,0,1),
+        (2,4,4),
+        (4,2,1),
     ]
     for (u,v,expected) in A:
         assert t.calc(u,v) == expected
-        assert t.calc(v,u) == expected

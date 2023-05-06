@@ -17,26 +17,28 @@ class Rerooting:
         return out
 
     def add_edge(self, u, v, eval):
+        self.g[u].append(v)
         self.evals[(u, v)] = eval
 
     def dfs_once(self, par, u):
         for v in self.g[u]:
             if v == par:
                 continue
-            self.dfs1(u, v)
+            self.dfs_once(u, v)
         
-        if par:
+        print(par, u)
+        if not par == None:
             dp = []
             for v in self.g[u]:
                 if v == par:
                     continue
                 dp.append(self.dp[(v, u)])
             n = len(dp)
-            cumL = self.cumsum(dp, self.id)
+            cumL = self.cumsum(dp)
             newv = self.f(self.evals[(u, par)], cumL[n])
             self.dp[(u, par)] = newv
 
-    def reroot(self, par, u):
+    def dfs_reroot(self, par, u):
         dp = []
         for v in self.g[u]:
             dp.append(self.dp[(v, u)])
@@ -52,7 +54,7 @@ class Rerooting:
         for v in self.g[u]:
             if v == par:
                 continue
-            self.reroot(u, v)
+            self.dfs_reroot(u, v)
 
     def calc(self, u, v):
         return self.dp[(u, v)]
