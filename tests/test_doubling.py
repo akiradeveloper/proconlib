@@ -17,7 +17,7 @@ def test_doubling():
     d = Doubling(2, g, 10)
     assert d.pow(10) == 1024
 
-@pytest.mark.randomize(x = int, k = int, min_num = 0, max_num = 10)
+@pytest.mark.randomize(x = int, k = int, min_num = 0, max_num = 1000000000)
 def test_doubling_quickcheck(x, k):
     ref = pow(x, k, M)
     f = x
