@@ -1,6 +1,7 @@
 from typing import *
 import itertools
 
+
 class Rerooting:
     def __init__(self, n, f, g):
         G = [[] for _ in range(n)]
@@ -11,10 +12,10 @@ class Rerooting:
         self.dp = {}
 
     def cumsum(self, xs):
-        id = self.f()
+        id = self.g()
         out = [id]
         for i, x in enumerate(xs):
-            out.append(self.f(out[i], x))
+            out.append(self.g(out[i], x))
         return out
 
     def add_edge(self, u, v, eval):
@@ -26,7 +27,7 @@ class Rerooting:
             if v == par:
                 continue
             self.dfs_once(u, v)
-        
+
         print(par, u)
         if not par == None:
             dp = []
@@ -36,7 +37,7 @@ class Rerooting:
                 dp.append(self.dp[(v, u)])
             n = len(dp)
             cumL = self.cumsum(dp)
-            newv = self.g(self.evals[(u, par)], cumL[n])
+            newv = self.f(self.evals[(u, par)], cumL[n])
             self.dp[(u, par)] = newv
 
     def dfs_reroot(self, par, u):
@@ -50,7 +51,7 @@ class Rerooting:
         for i, v in enumerate(self.G[u]):
             L = i
             R = n-L-1
-            newv = self.g(self.evals[(u, v)], self.f(cumL[L], cumR[R]))
+            newv = self.f(self.evals[(u, v)], self.g(cumL[L], cumR[R]))
             self.dp[(u, v)] = newv
         for v in self.G[u]:
             if v == par:
