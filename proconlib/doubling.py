@@ -5,7 +5,7 @@ def doubling_table(f, g, n):
     out = [f]
     for i in range(n):
         cur_f = out[i]
-        ff = g(f, cur_f)
+        ff = g(cur_f, cur_f)
         out.append(ff)
     return out
 
@@ -18,7 +18,6 @@ class Doubling:
     def pow(self, k: int):
         # g() = f0
         out = self.g()
-        print(out)
 
         i = 0
         while k > 0:
