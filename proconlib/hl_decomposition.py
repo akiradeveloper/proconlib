@@ -86,3 +86,24 @@ class HLDecomposition:
             if self.heavy_head[l] == self.heavy_head[r]:
                 return l
             r = self.par[self.heavy_head[r]]
+
+    def decompose(self, u, v) -> list[(int, int)]:
+        out = []
+        l = u
+        r = v
+        while True:
+            if self.vid[l] > self.vid[r]:
+                l, r = r, l
+            p = (
+                max(self.vid[l], self.vid[self.heavy_head[r]]),
+                self.vid[r],
+            )
+            out.append(p)
+            if self.heavy_head[l] != self.heavy_head[r]:
+                r = self.par[self.heavy_head[r]]
+            else:
+                break
+
+        return out
+
+
