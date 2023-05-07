@@ -1,13 +1,13 @@
 from typing import *
 
-class HLDecomposition:
+class HLD:
     def __init__(self, n):
         self.G = [[] for _ in range(n)]
         self.subcnt = [0 for _ in range(n)]
         self.depth = [0 for _ in range(n)]
         self.par = [None for _ in range(n)]
-        self.vid = [0 for _ in range(n)]
-        self.inv_vid = [0 for _ in range(n)]
+        self.real_to_virt = [0 for _ in range(n)]
+        self.virt_to_real = [0 for _ in range(n)]
         self.heavy_next = [None for _ in range(n)]
         self.heavy_head = [0 for _ in range(n)]
 
@@ -64,7 +64,7 @@ class HLDecomposition:
             hn = q.popleft()
             cur = hn
             while cur is not None:
-                self.vid[cur] = cur_vid
+                self.real_to_virt[cur] = cur_vid
                 cur_vid += 1
                 self.heavy_head[cur] = hn
                 for v in self.G[cur]:
@@ -77,14 +77,14 @@ class HLDecomposition:
         self.dfs1(root)
         self.dfs2(root)
         self.bfs(root)
-        for i, x in enumerate(self.vid):
-            self.inv_vid[x] = i
+        for i, x in enumerate(self.real_to_virt):
+            self.virt_to_real[x] = i
 
     def lca(self, u, v) -> int:
         l = u
         r = v
         while True:
-            if self.vid[l] > self.vid[r]:
+            if self.real_to_virt[l] > self.real_to_virt[r]:
                 l, r = r, l
             if self.heavy_head[l] == self.heavy_head[r]:
                 return l
@@ -95,11 +95,11 @@ class HLDecomposition:
         l = u
         r = v
         while True:
-            if self.vid[l] > self.vid[r]:
+            if self.real_to_virt[l] > self.real_to_virt[r]:
                 l, r = r, l
             p = (
-                max(self.vid[l], self.vid[self.heavy_head[r]]),
-                self.vid[r],
+                max(self.real_to_virt[l], self.real_to_virt[self.heavy_head[r]]),
+                self.real_to_virt[r],
             )
             out.append(p)
             if self.heavy_head[l] != self.heavy_head[r]:

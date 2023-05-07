@@ -1,11 +1,11 @@
-from proconlib.hl_decomposition import HLDecomposition
+from proconlib.hl_decomposition import HLD
 
 
 def test_hld():
     E = [(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (8, 4),
          (4, 9), (6, 2), (6, 10), (6, 11), (6, 12), (3, 7)]
 
-    t = HLDecomposition(13)
+    t = HLD(13)
     for (u, v) in E:
         t.connect(u, v)
 
@@ -34,7 +34,7 @@ def test_hld_networkx():
     refG = networkx.generators.trees.random_tree(N)
     refG = networkx.dfs_tree(refG, 0)
 
-    G = HLDecomposition(N)
+    G = HLD(N)
     for u, v in refG.edges():
         G.connect(u, v)
     G.build(0)
@@ -50,5 +50,5 @@ def test_hld_networkx():
         for (a, b) in G.decompose(u, v):
             S.add(a)
             S.add(b)
-        z = G.inv_vid[list(sorted(S))[0]]
+        z = G.virt_to_real[list(sorted(S))[0]]
         assert z == lca
