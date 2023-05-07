@@ -7,6 +7,7 @@ class HLDecomposition:
         self.depth = [0 for _ in range(n)]
         self.par = [None for _ in range(n)]
         self.vid = [0 for _ in range(n)]
+        self.inv_vid = [0 for _ in range(n)]
         self.heavy_next = [None for _ in range(n)]
         self.heavy_head = [0 for _ in range(n)]
 
@@ -76,6 +77,8 @@ class HLDecomposition:
         self.dfs1(root)
         self.dfs2(root)
         self.bfs(root)
+        for i, x in enumerate(self.vid):
+            self.inv_vid[x] = i
 
     def lca(self, u, v) -> int:
         l = u

@@ -4,7 +4,7 @@ from proconlib.hl_decomposition import HLDecomposition
 def test_hld():
     E = [(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (8, 4),
          (4, 9), (6, 2), (6, 10), (6, 11), (6, 12), (3, 7)]
-         
+
     t = HLDecomposition(13)
     for (u, v) in E:
         t.connect(u, v)
@@ -33,13 +33,22 @@ def test_hld_networkx():
     N = 1000
     refG = networkx.generators.trees.random_tree(N)
     refG = networkx.dfs_tree(refG, 0)
-    ref = networkx.algorithms.all_pairs_lowest_common_ancestor(refG)
 
     G = HLDecomposition(N)
     for u, v in refG.edges():
         G.connect(u, v)
     G.build(0)
 
-    # very slow.
+    ref = networkx.algorithms.all_pairs_lowest_common_ancestor(refG)
     for ((u, v), lca) in ref:
         assert G.lca(u, v) == lca
+
+    ref = networkx.algorithms.all_pairs_lowest_common_ancestor(refG)
+    for ((u, v), lca) in ref:
+        G.decompose(u, v)
+        S = set()
+        for (a, b) in G.decompose(u, v):
+            S.add(a)
+            S.add(b)
+        z = G.inv_vid[list(sorted(S))[0]]
+        assert z == lca
