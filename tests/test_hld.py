@@ -23,3 +23,19 @@ def test_hld():
     for (u,v,lca) in LCA:
         assert t.lca(u,v) == lca
         assert t.lca(v,u) == lca
+
+def test_hld_networkx():
+    import networkx
+    N = 1000
+    refG = networkx.generators.trees.random_tree(N)
+    refG = networkx.dfs_tree(refG, 0)
+    ref = networkx.algorithms.all_pairs_lowest_common_ancestor(refG)
+
+    G = HLD(N)
+    for u, v in refG.edges():
+        G.connect(u, v)
+    G.build(0)
+
+    # very slow.
+    for ((u, v), lca) in ref:
+        assert G.lca(u, v) == lca
