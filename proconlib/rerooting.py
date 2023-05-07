@@ -3,6 +3,8 @@ import itertools
 
 
 class Rerooting:
+    # f: (u, v, sum(L))
+    # g: (L)
     def __init__(self, n, f, g):
         G = [[] for _ in range(n)]
         self.G = G
@@ -18,9 +20,8 @@ class Rerooting:
             out.append(self.g(out[i], x))
         return out
 
-    def add_edge(self, u, v, eval):
+    def add_edge(self, u, v):
         self.G[u].append(v)
-        self.evals[(u, v)] = eval
 
     def dfs_once(self, par, u):
         for v in self.G[u]:
@@ -37,7 +38,7 @@ class Rerooting:
                 dp.append(self.dp[(v, u)])
             n = len(dp)
             cumL = self.cumsum(dp)
-            newv = self.f(self.evals[(u, par)], cumL[n])
+            newv = self.f(u, par, cumL[n])
             self.dp[(u, par)] = newv
 
     def dfs_reroot(self, par, u):
@@ -51,7 +52,7 @@ class Rerooting:
         for i, v in enumerate(self.G[u]):
             L = i
             R = n-L-1
-            newv = self.f(self.evals[(u, v)], self.g(cumL[L], cumR[R]))
+            newv = self.f(u, v, self.g(cumL[L], cumR[R]))
             self.dp[(u, v)] = newv
         for v in self.G[u]:
             if v == par:

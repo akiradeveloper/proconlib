@@ -2,8 +2,8 @@ from proconlib.rerooting import Rerooting
 
 
 def test_rerooting_size():
-    def f(e, dp):
-        return e + dp
+    def f(u, v, dp):
+        return dp + 1
 
     def g(*xs):
         out = 0
@@ -14,8 +14,8 @@ def test_rerooting_size():
     t = Rerooting(5, f, g)
     E = [(0, 1), (0, 2), (0, 3), (2, 4)]
     for (u, v) in E:
-        t.add_edge(u, v, 1)
-        t.add_edge(v, u, 1)
+        t.add_edge(u, v)
+        t.add_edge(v, u)
     t.dfs_once(None, 0)
     t.dfs_reroot(None, 0)
     print(t.dp)
