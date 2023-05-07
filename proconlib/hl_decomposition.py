@@ -1,6 +1,6 @@
 from typing import *
 
-class HLD:
+class HLDecomposition:
     def __init__(self, n):
         self.G = [[] for _ in range(n)]
         self.subcnt = [0 for _ in range(n)]

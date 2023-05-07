@@ -1,8 +1,8 @@
-from proconlib.hld import HLD
+from proconlib.hl_decomposition import HLDecomposition
 
 def test_hld():
     E = [(0,1),(0,2),(0,3),(1,4),(1,5),(8,4),(4,9),(6,2),(6,10),(6,11),(6,12),(3,7)]
-    t = HLD(13)
+    t = HLDecomposition(13)
     for (u,v) in E:
         t.connect(u,v)
     t.build(0)
@@ -31,7 +31,7 @@ def test_hld_networkx():
     refG = networkx.dfs_tree(refG, 0)
     ref = networkx.algorithms.all_pairs_lowest_common_ancestor(refG)
 
-    G = HLD(N)
+    G = HLDecomposition(N)
     for u, v in refG.edges():
         G.connect(u, v)
     G.build(0)
