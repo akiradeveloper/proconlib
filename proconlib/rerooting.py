@@ -29,7 +29,6 @@ class Rerooting:
                 continue
             self.dfs_once(u, v)
 
-        print(par, u)
         if par is not None:
             dp = []
             for v in self.G[u]:
