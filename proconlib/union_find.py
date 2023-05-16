@@ -13,7 +13,8 @@ class UnionFind:
             self.par[x] = y
             return y
 
-    def union(self, x, y, w=1):
+    # weight(y) - weight(x) = w
+    def union(self, x, y, w=0):
         rx = self.find(x)
         ry = self.find(y)
         if self.rank[rx] < self.rank[ry]:
@@ -28,5 +29,6 @@ class UnionFind:
     def same(self, x, y):
         return self.find(x) == self.find(y)
 
+    # weight(y) - weight(x)
     def diff(self, x, y):
         return self.weight[x] - self.weight[y]
